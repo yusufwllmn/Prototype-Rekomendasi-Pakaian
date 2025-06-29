@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokopaedi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <header class="bg-blue-600 text-white py-3 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">Tokopaedi</h1>
+            <nav class="space-x-3">
+                <a href="#" class="hover:text-blue-200">Home</a>
+                <a href="#" class="hover:text-blue-200">Shop</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-4">
+        <!-- Carousel -->
+        <section class="lg:w-1/2 w-full lg:sticky lg:top-4 py-10">
+            <div class="relative p-4">
+                <div id="carousel" class="carousel w-full max-w-[300px] mx-auto">
+                    <div class="carousel-item w-full">
+                        <img src="storage/image/black.png" alt="Clothing 1" class="w-full rounded-md">
+                    </div>
+                    <div class="carousel-item w-full hidden">
+                        <img src="storage/image/white.png" alt="Clothing 2" class="w-full rounded-md">
+                    </div>
+                    <div class="carousel-item w-full hidden">
+                        <img src="storage/image/navy.png" alt="Clothing 3" class="w-full rounded-md">
+                    </div>
+                </div>
+                <button id="prevBtn" class="px-20 absolute left-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600"><</button>
+                <button id="nextBtn" class="px-20 absolute right-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600">></button>
+            </div>
+        </section>
+
+        <!-- Product Details -->
+        <section class="lg:w-1/2 w-full space-y-4 mt-2">
+            <!-- Product Name -->
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">Casual Cotton Shirt</h1>
+            </div>
+
+            <!-- Price -->
+            <div>
+                <h2 class="text-3xl text-blue-600 font-semibold">Rp 250,000</h2>
+            </div>
+            <hr class="border-gray-300">
+
+            <!-- Color Selection -->
+            <div>
+                <div class="flex gap-4 items-center">
+                    <h3 class="text-base font-bold text-gray-700">Choose Color: </h3>
+                    <span id="selectedColor" class="text-sm text-gray-600">Black</span>
+                </div>
+                <div class="flex space-x-2 mt-2">
+                    <button data-color="Black" class="px-3 py-1 bg-white border border-blue-600 text-blue-600 rounded-md color-option active">Black</button>
+                    <button data-color="White" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:border-blue-600 color-option">White</button>
+                    <button data-color="Navy" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:border-blue-600 color-option">Navy</button>
+                </div>
+            </div>
+
+            <!-- Size Selection -->
+            <div>
+                <div class="flex gap-4 items-center">
+                    <h3 class="text-base font-bold text-gray-700">Choose Size: </h3>
+                    <span id="selectedSize" class="text-sm text-gray-600">S</span>
+                </div>
+                <div class="flex space-x-2 mt-2">
+                    <button data-size="S" class="px-3 py-1 bg-white border border-blue-600 text-blue-600 rounded-md size-option active">S</button>
+                    <button data-size="M" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:border-blue-600 size-option">M</button>
+                    <button data-size="L" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:border-blue-600 size-option">L</button>
+                    <button data-size="XL" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:border-blue-600 size-option">XL</button>
+                </div>
+            </div>
+
+            <!-- Size guide -->
+            <div class="flex space-x-2 items-end">
+                <button id="sizeGuideBtn" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">Size Guide</button>
+                <button id="autoSizeBtn" class="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">Check Size</button>
+                <span class="text-sm text-black">*check your size</span>
+            </div>
+
+            <hr class="border-gray-300">
+
+            <!-- Quantity -->
+            <div>
+                <h3 class="text-base font-medium text-gray-700">Quantity</h3>
+                <div class="relative flex items-center max-w-[8rem] mt-1">
+                    <button type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-l-md p-3 h-10 flex items-center justify-center focus:ring-blue-500 focus:ring-2">−</button>
+                    <input type="text" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="50" class="bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-full py-2.5" value="1" required />
+                    <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-r-md p-3 h-10 flex items-center justify-center focus:ring-blue-500 focus:ring-2">+</button>
+                </div>
+            </div>
+            <hr class="border-gray-300">
+
+            <!-- Buy and Add to Cart -->
+            <div class="flex space-x-2">
+                <button class="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Buy Now</button>
+                <button class="flex-1 bg-blue-100 text-blue-600 py-2 rounded-md hover:bg-blue-200">Add to Cart</button>
+            </div>
+            <hr class="border-gray-300">
+
+            <!-- Product Details -->
+            <div>
+                <h3 class="text-base font-medium text-gray-700">Product Details</h3>
+                <p class="text-sm text-gray-600">This casual cotton shirt is perfect for everyday wear. Made from high-quality, breathable fabric, it offers comfort and style. Available in multiple colors and sizes, suitable for both casual and semi-formal occasions.</p>
+            </div>
+            <hr class="border-gray-300">
+
+            <!-- Store -->
+            <div class="flex items-center space-x-2">
+                <img src="storage/image/store.png" alt="Store Logo" class="w-10 h-10 rounded-full">
+                <h3 class="text-lg">Fashion Hub</h3>
+            </div>
+            <hr class="border-gray-300">
+        </section>
+
+    </main>
+    
+    <!-- Size Guide Pop-up -->
+    <div id="sizeGuideModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-lgxl font-bold mb-4">Size Guide</h2>
+            <img src="storage/image/Size Guide.png" alt="Size table" class="w-full rounded-md">
+            <button id="closeModalBtn" class="mt-6 px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white py-3">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Clothing Store.<p>
+        </div>
+    </footer>
+
+    <!-- Javascript -->
+    <script src="script.js"></script>
+</body>
+</html>
