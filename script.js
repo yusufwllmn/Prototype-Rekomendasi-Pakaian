@@ -76,4 +76,46 @@ document.addEventListener('DOMContentLoaded', () => {
             sizeGuideModal.classList.add('hidden');
         }
     });
+
+    // Modal Cek Ukuran
+    const checkSizeBtn = document.getElementById('autoSizeBtn');
+    const checkSizeModal = document.getElementById('checkSizeModal');
+    const closeCheckModalBtn = document.getElementById('closeCheckModalBtn');
+    const sizeForm = document.getElementById('sizeForm');
+    const sizeResult = document.getElementById('sizeResult');
+    const recommendedSize = document.getElementById('recommendedSize');
+    
+    // Tampilkan modal
+    checkSizeBtn.addEventListener('click', () => {
+      checkSizeModal.classList.remove('hidden');
+    });
+    
+    // Tutup modal
+    closeCheckModalBtn.addEventListener('click', () => {
+      checkSizeModal.classList.add('hidden');
+      sizeResult.classList.add('hidden');
+      sizeForm.reset();
+    });
+    
+    // Submit form
+    sizeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const height = parseInt(document.getElementById('height').value);
+      const weight = parseInt(document.getElementById('weight').value);
+      const preference = parseInt(document.getElementById('preference').value);
+    
+      // Logika pohon keputusan (sederhana)
+      let size = '';
+      if (height <= 160 && weight <= 55) size = 'S';
+      else if (height <= 165 && weight <= 65) size = 'M';
+      else if (height <= 170 && weight <= 75) size = 'L';
+      else size = 'XL';
+    
+      // Penyesuaian berdasarkan preferensi
+      if (preference === 1 && size !== 'S') size = size === 'M' ? 'S' : size === 'L' ? 'M' : 'L'; // ketat
+      if (preference === 3 && size !== 'XL') size = size === 'S' ? 'M' : size === 'M' ? 'L' : 'XL'; // longgar
+    
+      recommendedSize.textContent = size;
+      sizeResult.classList.remove('hidden');
+    });
 });

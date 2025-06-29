@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokopaedi</title>
+    <title>Size Recommendation Prototype</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html, body {
@@ -50,8 +50,8 @@
                         <img src="storage/image/navy.png" alt="Clothing 3" class="w-full rounded-md">
                     </div>
                 </div>
-                <button id="prevBtn" class="px-20 absolute left-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600"><</button>
-                <button id="nextBtn" class="px-20 absolute right-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600">></button>
+                <button id="prevBtn" class="px-4 md:px-20 absolute left-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600"><</button>
+                <button id="nextBtn" class="px-4 md:px-20 absolute right-0 top-1/2 -translate-y-1/2 text-black text-2xl hover:text-blue-600">></button>
             </div>
         </section>
 
@@ -139,6 +139,13 @@
 
     </main>
     
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white py-3">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Clothing Store.<p>
+        </div>
+    </footer>
+
     <!-- Size Guide Pop-up -->
     <div id="sizeGuideModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -148,12 +155,44 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-blue-800 text-white py-3">
-        <div class="container mx-auto px-4 text-center">
-            <p>© 2025 Clothing Store.<p>
+    <!-- Modal Cek Ukuran -->
+    <div id="checkSizeModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 justify-self-center">Size Recommendation</h2>
+        <form id="sizeForm" class="space-y-4 mt-4">
+          <div>
+            <label for="height" class="block text-sm font-medium text-gray-700">Height (cm)</label>
+            <input type="number" id="height" name="height" class="w-full border-b border-gray-400 focus:border-blue-600 focus:outline-none bg-transparent py-1 px-0" required>
+          </div>
+          <div>
+            <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" class="w-full border-b border-gray-400 focus:border-blue-600 focus:outline-none bg-transparent py-1 px-0" required>
+          </div>
+          <div>
+            <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+            <input type="number" id="age" name="age" class="w-full border-b border-gray-400 focus:border-blue-600 focus:outline-none bg-transparent py-1 px-0">
+          </div>
+          <div>
+            <label for="preference" class="block text-sm font-medium text-gray-700">Preference</label>
+            <input type="range" id="preference" name="preference" min="1" max="3" step="1" class="w-full">
+            <div class="flex justify-between text-sm text-gray-500 mt-1">
+              <span>Thight</span>
+              <span>Standart</span>
+              <span>Loose</span>
+            </div>
+          </div>
+          <div id="sizeResult" class="mt-4 text-sm text-gray-700 font-semibold hidden">
+            <p class="text-sm">Ukuran yang direkomendasikan: <span id="recommendedSize" class="text-sm text-blue-600"></span></p>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Cek Ukuran</button>
+          </div>
+        </form>
+        <div class="mt-4 text-right">
+          <button id="closeCheckModalBtn" class="text-sm text-blue-600 hover:underline">Tutup</button>
         </div>
-    </footer>
+      </div>
+    </div>
 
     <!-- Javascript -->
     <script src="script.js"></script>
