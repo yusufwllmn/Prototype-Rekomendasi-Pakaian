@@ -77,45 +77,93 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Modal Cek Ukuran
+
+    // Sizing Logic
     const checkSizeBtn = document.getElementById('autoSizeBtn');
     const checkSizeModal = document.getElementById('checkSizeModal');
     const closeCheckModalBtn = document.getElementById('closeCheckModalBtn');
     const sizeForm = document.getElementById('sizeForm');
     const sizeResult = document.getElementById('sizeResult');
     const recommendedSize = document.getElementById('recommendedSize');
-    
-    // Tampilkan modal
+
     checkSizeBtn.addEventListener('click', () => {
-      checkSizeModal.classList.remove('hidden');
+        checkSizeModal.classList.remove('hidden');
     });
-    
-    // Tutup modal
+
     closeCheckModalBtn.addEventListener('click', () => {
-      checkSizeModal.classList.add('hidden');
-      sizeResult.classList.add('hidden');
-      sizeForm.reset();
+        checkSizeModal.classList.add('hidden');
+        sizeResult.classList.add('hidden');
+        sizeForm.reset();
     });
-    
-    // Submit form
+
     sizeForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const height = parseInt(document.getElementById('height').value);
-      const weight = parseInt(document.getElementById('weight').value);
-      const preference = parseInt(document.getElementById('preference').value);
-    
-      // Logika pohon keputusan (sederhana)
-      let size = '';
-      if (height <= 160 && weight <= 55) size = 'S';
-      else if (height <= 165 && weight <= 65) size = 'M';
-      else if (height <= 170 && weight <= 75) size = 'L';
-      else size = 'XL';
-    
-      // Penyesuaian berdasarkan preferensi
-      if (preference === 1 && size !== 'S') size = size === 'M' ? 'S' : size === 'L' ? 'M' : 'L'; // ketat
-      if (preference === 3 && size !== 'XL') size = size === 'S' ? 'M' : size === 'M' ? 'L' : 'XL'; // longgar
-    
-      recommendedSize.textContent = size;
-      sizeResult.classList.remove('hidden');
+        e.preventDefault();
+        const height = parseInt(document.getElementById('height').value) || 0;
+        const weight = parseInt(document.getElementById('weight').value) || 0;
+        const preference = parseInt(document.getElementById('preference').value) || 2;
+
+        let baseSize = '';
+        if (weight <= 60){
+            if (height <= 157){
+                baseSize = 'S';
+            } else{
+                if (height <= 172){
+                    baseSize = 'M';
+                } else{
+                    baseSize = 'L';
+                }
+            }
+        } else{
+            if (weight <= 65) {
+                if(height <= 157){
+                    baseSize = 'S';
+                } else {
+                    if (height <= 165){
+                        baseSize = 'M';
+                    } else {
+                        baseSize = 'L';
+                    }
+                }
+            } else {
+                if (weight <= 72){
+                    if (height <= 165) {
+                        baseSize = 'M';
+                    } else {
+                        if (height <= 172){
+                            baseSize = 'L';
+                        } else {
+                            baseSize = 'XL';
+                        }
+                    }
+                } else {
+                    if (weight <= 85){
+                        if (height <= 157){
+                            baseSize = 'M'
+                        } else{
+                            if(height <= 165){
+                                baseSize = 'L';
+                            } else {
+                                baseSize = 'XL'
+                            }
+                        }
+                    } else{
+                        baseSize = 'XL';
+                    }
+                }
+            }
+        }
+
+        let finalSize = baseSize;
+        if (preference === 1) { // Tight
+            if (baseSize === 'M') finalSize = 'S';
+            else if (baseSize === 'L') finalSize = 'M';
+            else if (baseSize === 'XL') finalSize = 'L';
+        } else if (preference === 3) { // Loose
+            if (baseSize === 'S') finalSize = 'M';
+            else if (baseSize === 'M') finalSize = 'L';
+            else if (baseSize === 'L') finalSize = 'XL';
+        }
+        recommendedSize.textContent = finalSize;
+        sizeResult.classList.remove('hidden');
     });
 });
